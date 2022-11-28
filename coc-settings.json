@@ -1,0 +1,7 @@
+{
+  "coc.preferences.formatOnSave": true,
+  "Lua.diagnostics.globals": [
+    "vim"
+  ],
+  "Lua.telemetry.enable": true
+}
