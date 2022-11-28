@@ -3,6 +3,7 @@ require('plugins')
 require('treesitter-config')
 require('telescope-config')
 
+vim.opt.swapfile = false
 vim.opt.autoindent = true
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
@@ -22,5 +23,12 @@ vim.g.NERDTreeShowHidden = 1
 vim.g.NERDTreeMinimalUI = 1
 vim.g.NERDTreeIgnore = {}
 vim.g.NERDTreeStatusLine = ''
-vim.g.coc_global_extensions = { 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-eslint',
-  'coc-sumneko-lua' }
+vim.g.coc_global_extensions = {
+  'coc-css',
+  'coc-html',
+  'coc-json',
+  'coc-prettier',
+  'coc-tsserver',
+  'coc-eslint',
+  'coc-sumneko-lua'
+}
