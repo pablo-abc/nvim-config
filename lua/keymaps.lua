@@ -11,6 +11,7 @@ keymap.set('n', '<leader>tq', ':tabclose<CR>')
 keymap.set('n', '<leader>tl', ':tabn<CR>')
 keymap.set('n', '<leader>th', ':tabp<CR>')
 
+-- Autocomplete
 keymap.set(
   'i',
   '<CR>',
@@ -23,3 +24,9 @@ keymap.set(
   end,
   { expr = true }
 )
+
+-- Tree
+keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>')
+
+-- Git
+keymap.set('n', '<leader>g', ':Neogit<CR>')

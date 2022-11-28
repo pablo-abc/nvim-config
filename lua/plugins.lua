@@ -15,6 +15,8 @@ return require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
 
+  use 'lukas-reineke/indent-blankline.nvim'
+
   use {
     'nvim-treesitter/nvim-treesitter',
     run = function()
@@ -29,9 +31,14 @@ return require('packer').startup(function(use)
 
   use { 'dracula/vim', as = 'dracula' }
 
-  use 'scrooloose/nerdtree'
+  use {
+    'kyazdani42/nvim-tree.lua',
+    config = function() require('nvim-tree').setup() end
+  }
 
   use 'ryanoasis/vim-devicons'
+
+  use 'gpanders/editorconfig.nvim'
 
   use {
     'nvim-telescope/telescope.nvim', tag = '0.1.0',
