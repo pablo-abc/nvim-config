@@ -16,12 +16,8 @@ opt.splitbelow = true
 opt.splitright = true
 
 vim.cmd('command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument')
-vim.cmd('colorscheme dracula')
+vim.cmd('colorscheme nordfox')
 
-g.NERDTreeShowHidden = 1
-g.NERDTreeMinimalUI = 1
-g.NERDTreeIgnore = {}
-g.NERDTreeStatusLine = ''
 g.coc_global_extensions = {
   'coc-css',
   'coc-html',

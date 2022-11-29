@@ -31,6 +31,8 @@ return require('packer').startup(function(use)
 
   use { 'dracula/vim', as = 'dracula' }
 
+  use 'EdenEast/nightfox.nvim'
+
   use {
     'kyazdani42/nvim-tree.lua',
     config = function() require('nvim-tree').setup() end
@@ -49,6 +51,13 @@ return require('packer').startup(function(use)
     'nvim-lualine/lualine.nvim',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     config = function() require('lualine').setup() end
+  }
+
+  use {
+    'folke/which-key.nvim',
+    config = function()
+      require("which-key").setup()
+    end
   }
 
   if packer_bootstrap then

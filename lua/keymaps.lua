@@ -25,6 +25,8 @@ keymap.set(
   { expr = true }
 )
 
+keymap.set('n', 'K', ':call CocActionAsync("doHover")<CR>')
+
 -- Tree
 keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>')
 
