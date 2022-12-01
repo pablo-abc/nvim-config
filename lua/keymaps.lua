@@ -5,6 +5,7 @@ local keymap = vim.keymap
 keymap.set('n', '<leader>nh', ':noh<CR>')
 keymap.set('n', '<leader>tt', ':10split<CR>:terminal<CR>i')
 
+
 -- Tabs
 keymap.set('n', '<leader>to', ':tabnew<CR>')
 keymap.set('n', '<leader>tq', ':tabclose<CR>')
@@ -28,7 +29,7 @@ keymap.set(
 keymap.set('n', 'K', ':call CocActionAsync("doHover")<CR>')
 
 -- Tree
-keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>')
+keymap.set('n', '<leader>e', ':Neotree toggle<CR>')
 
 -- Git
 keymap.set('n', '<leader>g', ':Neogit<CR>')

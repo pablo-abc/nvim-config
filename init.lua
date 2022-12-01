@@ -1,5 +1,5 @@
-require('keymaps')
 require('plugins')
+require('keymaps')
 require('treesitter-config')
 require('telescope-config')
 require('settings')

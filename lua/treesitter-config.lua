@@ -1,13 +1,13 @@
-require'nvim-treesitter.configs'.setup {
+require 'nvim-treesitter.configs'.setup {
   ensure_installed = {
     'javascript',
     'html',
     'tsx',
-    'svelte', 
+    'svelte',
     'help',
     'clojure',
     'json',
-    'vim', 
+    'vim',
     'lua',
     'css',
     'astro',
@@ -15,7 +15,8 @@ require'nvim-treesitter.configs'.setup {
     'scss',
     'typescript',
     'rust',
-    'gitignore'
+    'gitignore',
+    'fennel'
   },
   highlight = {
     enable = true,
