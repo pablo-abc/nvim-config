@@ -18,6 +18,11 @@ require 'nvim-treesitter.configs'.setup {
     'gitignore',
     'fennel'
   },
+  rainbow = {
+    enable = true,
+    extended_mode = true,
+    max_file_liens = nil,
+  },
   highlight = {
     enable = true,
     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.

@@ -20,7 +20,7 @@ keymap.set(
     if vim.fn['coc#pum#visible']() == 1 then
       return vim.fn['coc#pum#confirm']()
     else
-      return '<CR>'
+      return require('nvim-autopairs').autopairs_cr()
     end
   end,
   { expr = true }
