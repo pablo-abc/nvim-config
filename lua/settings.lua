@@ -25,5 +25,6 @@ g.coc_global_extensions = {
   'coc-prettier',
   'coc-tsserver',
   'coc-eslint',
-  'coc-sumneko-lua'
+  'coc-sumneko-lua',
+  'coc-conjure'
 }

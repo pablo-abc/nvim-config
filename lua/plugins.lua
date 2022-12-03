@@ -36,6 +36,8 @@ return require('packer').startup(function(use)
     end
   }
 
+  use 'Olical/conjure'
+
   use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
 
   use { 'neoclide/coc.nvim', branch = 'release' }
@@ -56,8 +58,6 @@ return require('packer').startup(function(use)
       vim.g.neo_tree_remove_legacy_commands = 1
     end
   }
-
-  use 'ryanoasis/vim-devicons'
 
   use 'gpanders/editorconfig.nvim'
 
