@@ -16,7 +16,8 @@ require 'nvim-treesitter.configs'.setup {
     'typescript',
     'rust',
     'gitignore',
-    'fennel'
+    'fennel',
+    'teal'
   },
   rainbow = {
     enable = true,

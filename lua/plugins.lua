@@ -28,6 +28,36 @@ return require('packer').startup(function(use)
   }
 
   use {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    config = function()
+      require('nvim-treesitter.configs').setup({
+        textobjects = {
+          select = {
+            enable = true,
+            lookahead = true,
+            keymaps = {
+              ['af'] = '@function.outer',
+              ['if'] = '@function.inner',
+              ['ac'] = '@class.outer',
+              ['ic'] = '@class.inner',
+            },
+          },
+        },
+      })
+    end,
+  }
+
+  use {
+    "kylechui/nvim-surround",
+    tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+    config = function()
+      require("nvim-surround").setup({
+        -- Configuration here, or leave empty to use defaults
+      })
+    end
+  }
+
+  use {
     "windwp/nvim-autopairs",
     config = function()
       require("nvim-autopairs").setup {
@@ -38,9 +68,21 @@ return require('packer').startup(function(use)
 
   use 'Olical/conjure'
 
+  use {
+    'clojure-vim/vim-jack-in',
+    requires = {
+      'tpope/vim-dispatch',
+      'radenling/vim-dispatch-neovim',
+    }
+  }
+
+  use 'gpanders/nvim-parinfer'
+
   use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
 
   use { 'neoclide/coc.nvim', branch = 'release' }
+
+  use 'github/copilot.vim'
 
   use { 'dracula/vim', as = 'dracula' }
 

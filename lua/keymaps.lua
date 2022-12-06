@@ -1,4 +1,5 @@
 vim.g.mapleader = ','
+vim.g.localleader = '\\'
 
 local keymap = vim.keymap
 
@@ -14,16 +15,16 @@ keymap.set('n', '<leader>th', ':tabp<CR>')
 
 -- Autocomplete
 keymap.set(
-  'i',
-  '<CR>',
-  function()
-    if vim.fn['coc#pum#visible']() == 1 then
-      return vim.fn['coc#pum#confirm']()
-    else
-      return require('nvim-autopairs').autopairs_cr()
-    end
-  end,
-  { expr = true }
+	'i',
+	'<CR>',
+	function()
+		if vim.fn['coc#pum#visible']() == 1 then
+			return vim.fn['coc#pum#confirm']()
+		else
+			return require('nvim-autopairs').autopairs_cr()
+		end
+	end,
+	{ expr = true }
 )
 
 keymap.set('n', 'K', ':call CocActionAsync("doHover")<CR>')
