@@ -1,36 +1,50 @@
 vim.g.mapleader = ','
 vim.g.localleader = '\\'
 
-local keymap = vim.keymap
+-- Map keys with `silent` true by default
+--@param mode string
+--@param lhs string
+--@param rhs string
+--@param opts table?
+--@return nil
+--@usage map('n', '<leader>ff', '<cmd>Telescope find_files<cr>')
+--@usage map('n', '<leader>ff', '<cmd>Telescope find_files<cr>', { noremap = true })
+local function map(mode, lhs, rhs, opts)
+  local options = { silent = true }
+  if opts then
+    options = vim.tbl_extend('force', options, opts)
+  end
+  vim.keymap.set(mode, lhs, rhs, options)
+end
 
-keymap.set('n', '<leader>nh', ':noh<CR>')
-keymap.set('n', '<leader>tt', ':10split<CR>:terminal<CR>i')
+map('n', '<leader>nh', ':noh<CR>')
+map('n', '<leader>tt', ':10split<CR>:terminal<CR>i')
 
 
 -- Tabs
-keymap.set('n', '<leader>to', ':tabnew<CR>')
-keymap.set('n', '<leader>tq', ':tabclose<CR>')
-keymap.set('n', '<leader>tl', ':tabn<CR>')
-keymap.set('n', '<leader>th', ':tabp<CR>')
+map('n', '<leader>to', ':tabnew<CR>')
+map('n', '<leader>tq', ':tabclose<CR>')
+map('n', '<leader>tl', ':tabn<CR>')
+map('n', '<leader>th', ':tabp<CR>')
 
 -- Autocomplete
-keymap.set(
-	'i',
-	'<CR>',
-	function()
-		if vim.fn['coc#pum#visible']() == 1 then
-			return vim.fn['coc#pum#confirm']()
-		else
-			return require('nvim-autopairs').autopairs_cr()
-		end
-	end,
-	{ expr = true }
+map(
+  'i',
+  '<CR>',
+  function()
+    if vim.fn['coc#pum#visible']() == 1 then
+      return vim.fn['coc#pum#confirm']()
+    else
+      return require('nvim-autopairs').autopairs_cr()
+    end
+  end,
+  { expr = true }
 )
 
-keymap.set('n', 'K', ':call CocActionAsync("doHover")<CR>')
+map('n', '<leader>K', ':call CocActionAsync("doHover")<CR>')
 
 -- Tree
-keymap.set('n', '<leader>e', ':Neotree toggle<CR>')
+map('n', '<leader>e', ':Neotree toggle<CR>')
 
 -- Git
-keymap.set('n', '<leader>g', ':Neogit<CR>')
+map('n', '<leader>g', ':Neogit<CR>')

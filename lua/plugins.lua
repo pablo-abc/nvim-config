@@ -66,7 +66,12 @@ return require('packer').startup(function(use)
     end
   }
 
-  use 'Olical/conjure'
+  use {
+    'Olical/conjure',
+    config = function()
+      vim.g['conjure#extract#tree_sitter#enabled'] = true
+    end
+  }
 
   use {
     'clojure-vim/vim-jack-in',
