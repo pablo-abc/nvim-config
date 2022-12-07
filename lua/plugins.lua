@@ -83,8 +83,6 @@ return require('packer').startup(function(use)
 
   use 'gpanders/nvim-parinfer'
 
-  use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
-
   use { 'neoclide/coc.nvim', branch = 'release' }
 
   use 'github/copilot.vim'
@@ -92,6 +90,8 @@ return require('packer').startup(function(use)
   use { 'dracula/vim', as = 'dracula' }
 
   use 'EdenEast/nightfox.nvim'
+
+  use 'kdheepak/lazygit.nvim'
 
   use {
     "nvim-neo-tree/neo-tree.nvim",

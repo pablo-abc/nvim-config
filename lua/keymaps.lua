@@ -42,9 +42,10 @@ map(
 )
 
 map('n', '<leader>K', ':call CocActionAsync("doHover")<CR>')
+map('n', '<leader>gd', ':call CocActionAsync("jumpDefinition")<CR>')
 
 -- Tree
 map('n', '<leader>e', ':Neotree toggle<CR>')
 
 -- Git
-map('n', '<leader>g', ':Neogit<CR>')
+map('n', '<leader>g', ':LazyGit<CR>')
