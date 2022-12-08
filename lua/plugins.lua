@@ -93,6 +93,8 @@ return require('packer').startup(function(use)
 
   use 'kdheepak/lazygit.nvim'
 
+  use 'f-person/git-blame.nvim'
+
   use {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v2.x",
