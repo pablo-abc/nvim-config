@@ -27,5 +27,6 @@ g.coc_global_extensions = {
   'coc-eslint',
   'coc-sumneko-lua',
   'coc-conjure',
-  'coc-rust-analyzer'
+  'coc-rust-analyzer',
+  'coc-go'
 }
