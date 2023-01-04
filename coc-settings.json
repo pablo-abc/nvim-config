@@ -3,5 +3,6 @@
   "Lua.diagnostics.globals": ["vim"],
   "Lua.telemetry.enable": true,
   "signature.enable": true,
-  "signature.target": "float"
+  "signature.target": "float",
+  "rust-analyzer.checkOnSave.command": "clippy"
 }
