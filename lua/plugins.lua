@@ -143,6 +143,15 @@ return require('packer').startup(function(use)
     },
     config = function()
       vim.g.neo_tree_remove_legacy_commands = 1
+      require('neo-tree').setup({
+        filesystem = {
+          follow_current_file = true,
+          use_libuv_file_watcher = true
+        },
+        buffers = {
+          follow_current_file = true
+        }
+      })
     end
   }
 
