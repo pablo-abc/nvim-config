@@ -4,5 +4,6 @@
   "Lua.telemetry.enable": true,
   "signature.enable": true,
   "signature.target": "float",
-  "rust-analyzer.checkOnSave.command": "clippy"
+  "rust-analyzer.checkOnSave.command": "clippy",
+  "eslint.autoFixOnSave": true
 }
