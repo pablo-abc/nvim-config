@@ -17,8 +17,6 @@ return require('packer').startup(function(use)
 
   use 'lukas-reineke/indent-blankline.nvim'
 
-  use 'HiPhish/rainbow-delimiters.nvim'
-
   use {
     'nvim-treesitter/nvim-treesitter',
     run = function()
