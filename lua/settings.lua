@@ -28,5 +28,7 @@ g.coc_global_extensions = {
   'coc-sumneko-lua',
   'coc-conjure',
   'coc-rust-analyzer',
-  'coc-go'
+  'coc-go',
+  '@yaegassy/coc-volar',
+  '@yaegassy/coc-typescript-vue-plugin'
 }
