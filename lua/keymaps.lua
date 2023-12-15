@@ -38,7 +38,7 @@ map(
       return require('nvim-autopairs').autopairs_cr()
     end
   end,
-  { expr = true }
+  { expr = true, replace_keycodes = false }
 )
 
 map('n', '<leader>K', ':call CocActionAsync("doHover")<CR>')
