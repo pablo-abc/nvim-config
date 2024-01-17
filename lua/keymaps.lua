@@ -28,21 +28,21 @@ map('n', '<leader>tl', ':tabn<CR>')
 map('n', '<leader>th', ':tabp<CR>')
 
 -- Autocomplete
-map(
-  'i',
-  '<CR>',
-  function()
-    if vim.fn['coc#pum#visible']() == 1 then
-      return vim.fn['coc#pum#confirm']()
-    else
-      return require('nvim-autopairs').autopairs_cr()
-    end
-  end,
-  { expr = true, replace_keycodes = false }
-)
+-- map(
+--   'i',
+--   '<CR>',
+--   function()
+--     if vim.fn['coc#pum#visible']() == 1 then
+--       return vim.fn['coc#pum#confirm']()
+--     else
+--       return require('nvim-autopairs').autopairs_cr()
+--     end
+--   end,
+--   { expr = true, replace_keycodes = false }
+-- )
 
-map('n', '<leader>K', ':call CocActionAsync("doHover")<CR>')
-map('n', '<leader>gd', ':call CocActionAsync("jumpDefinition")<CR>')
+-- map('n', '<leader>K', ':call CocActionAsync("doHover")<CR>')
+-- map('n', '<leader>gd', ':call CocActionAsync("jumpDefinition")<CR>')
 
 -- Tree
 map('n', '<leader>e', ':Neotree toggle<CR>')

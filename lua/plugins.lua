@@ -84,6 +84,59 @@ return require('packer').startup(function(use)
   }
 
   use {
+    'williamboman/mason.nvim',
+    'williamboman/mason-lspconfig.nvim'
+  }
+
+  use {
+    'neovim/nvim-lspconfig',
+    requires = {'williamboma/mason-lspconfig.nvim'},
+    config = function ()
+      require('mason').setup()
+      require('mason-lspconfig').setup {
+        automatic_installation = true
+      }
+      local lspconfig = require('lspconfig')
+      lspconfig.lua_ls.setup {
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = {'vim'}
+            }
+          }
+        }
+      }
+
+      lspconfig.volar.setup {
+        filetypes = {'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json'}
+      }
+
+      lspconfig.tsserver.setup {}
+
+      lspconfig.rust_analyzer.setup {}
+
+      lspconfig.eslint.setup({
+        on_attach = function(client, bufnr)
+          vim.api.nvim_create_autocmd("BufWritePre", {
+            buffer = bufnr,
+            command = "EslintFixAll",
+          })
+        end,
+      })
+
+      lspconfig.astro.setup{}
+    end
+  }
+
+  use 'mfussenegger/nvim-dap'
+
+  use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
+
+  use 'mfussenegger/nvim-lint'
+
+  use { 'mhartington/formatter.nvim' }
+
+  use {
     "kylechui/nvim-surround",
     tag = "*", -- Use for stability; omit to use `main` branch for the latest features
     config = function()
@@ -118,8 +171,6 @@ return require('packer').startup(function(use)
   }
 
   use 'gpanders/nvim-parinfer'
-
-  use { 'neoclide/coc.nvim', branch = 'release' }
 
   use 'github/copilot.vim'
 
