@@ -156,7 +156,7 @@ return require('packer').startup(function(use)
   use 'gpanders/editorconfig.nvim'
 
   use {
-    'nvim-telescope/telescope.nvim', tag = '0.1.0',
+    'nvim-telescope/telescope.nvim', tag = '*',
     requires = { { 'nvim-lua/plenary.nvim' } }
   }
 
