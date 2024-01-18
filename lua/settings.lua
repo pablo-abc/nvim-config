@@ -16,4 +16,4 @@ opt.splitright = true
 opt.conceallevel = 2
 
 -- vim.cmd('command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument')
-vim.cmd('colorscheme nordfox')
+vim.cmd("colorscheme nordfox")

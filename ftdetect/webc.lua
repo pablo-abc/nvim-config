@@ -1,5 +1,5 @@
 vim.filetype.add({
-  extension = {
-    webc = "html"
-  }
+	extension = {
+		webc = "html",
+	},
 })
