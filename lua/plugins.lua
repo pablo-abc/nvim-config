@@ -206,6 +206,9 @@ return require("packer").startup(function(use)
 					javascriptreact = {
 						require("formatter.filetypes.javascriptreact").prettier,
 					},
+					json = {
+						require("formatter.filetypes.json").prettier,
+					},
 					vue = {
 						require("formatter.filetypes.vue").prettier,
 					},
