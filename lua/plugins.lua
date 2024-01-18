@@ -272,6 +272,7 @@ return require("packer").startup(function(use)
 							workspaces = {
 								norg = "~/norg",
 							},
+							default_workspace = "norg",
 						},
 					},
 				},
