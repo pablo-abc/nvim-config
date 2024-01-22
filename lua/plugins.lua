@@ -132,9 +132,13 @@ return require("lazy").setup({
 				capabilities = capabilities,
 			})
 
-			lspconfig.cssmodules_ls.setup()
+			lspconfig.cssmodules_ls.setup({
+				capabilities = capabilities,
+			})
 
-			lspconfig.svelte.setup()
+			lspconfig.svelte.setup({
+				capabilities = capabilities,
+			})
 		end,
 	},
 
