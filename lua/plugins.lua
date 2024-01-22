@@ -43,6 +43,7 @@ return require("lazy").setup({
 					"fennel",
 					"teal",
 					"go",
+					"toml",
 				},
 				rainbow = {
 					enable = true,
@@ -130,6 +131,10 @@ return require("lazy").setup({
 			lspconfig.astro.setup({
 				capabilities = capabilities,
 			})
+
+			lspconfig.cssmodules_ls.setup()
+
+			lspconfig.svelte.setup()
 		end,
 	},
 
@@ -292,6 +297,12 @@ return require("lazy").setup({
 					noremap = true,
 				})
 			end)
+
+			local autocmd = vim.api.nvim_create_autocmd
+			autocmd({ "BufRead", "BufEnter" }, {
+				pattern = "*.norg",
+				command = "setlocal conceallevel=2",
+			})
 		end,
 		build = ":Neorg sync-parsers",
 		dependencies = { "nvim-lua/plenary.nvim", "nvim-neorg/neorg-telescope" },
