@@ -1,25 +1,24 @@
-local ensure_packer = function()
-	local fn = vim.fn
-	local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-	if fn.empty(fn.glob(install_path)) > 0 then
-		fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
-		vim.cmd([[packadd packer.nvim]])
-		return true
-	end
-	return false
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
 end
+vim.opt.rtp:prepend(lazypath)
 
-local packer_bootstrap = ensure_packer()
+return require("lazy").setup({
+	"wbthomason/packer.nvim",
 
-return require("packer").startup(function(use)
-	-- Packer can manage itself
-	use("wbthomason/packer.nvim")
+	"lukas-reineke/indent-blankline.nvim",
 
-	use("lukas-reineke/indent-blankline.nvim")
-
-	use({
+	{
 		"nvim-treesitter/nvim-treesitter",
-		run = function()
+		build = function()
 			local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
 			ts_update()
 		end,
@@ -30,7 +29,6 @@ return require("packer").startup(function(use)
 					"html",
 					"tsx",
 					"svelte",
-					"help",
 					"clojure",
 					"json",
 					"vim",
@@ -61,9 +59,9 @@ return require("packer").startup(function(use)
 				},
 			})
 		end,
-	})
+	},
 
-	use({
+	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		config = function()
 			require("nvim-treesitter.configs").setup({
@@ -81,16 +79,13 @@ return require("packer").startup(function(use)
 				},
 			})
 		end,
-	})
+	},
 
-	use({
-		"williamboman/mason.nvim",
-		"williamboman/mason-lspconfig.nvim",
-	})
+	"williamboman/mason.nvim",
+	"williamboman/mason-lspconfig.nvim",
 
-	use({
+	{
 		"neovim/nvim-lspconfig",
-		requires = { "williamboma/mason-lspconfig.nvim" },
 		config = function()
 			require("mason").setup()
 			require("mason-lspconfig").setup({
@@ -136,16 +131,16 @@ return require("packer").startup(function(use)
 				capabilities = capabilities,
 			})
 		end,
-	})
+	},
 
-	-- Completion
-	use("hrsh7th/cmp-vsnip")
-	use("hrsh7th/vim-vsnip")
-	use("hrsh7th/cmp-nvim-lsp")
-	use("hrsh7th/cmp-buffer")
-	use("hrsh7th/cmp-path")
-	use("hrsh7th/cmp-cmdline")
-	use({
+	"hrsh7th/cmp-vsnip",
+	"hrsh7th/vim-vsnip",
+	"hrsh7th/cmp-nvim-lsp",
+	"hrsh7th/cmp-buffer",
+	"hrsh7th/cmp-path",
+	"hrsh7th/cmp-cmdline",
+
+	{
 		"hrsh7th/nvim-cmp",
 		config = function()
 			local cmp = require("cmp")
@@ -181,15 +176,15 @@ return require("packer").startup(function(use)
 				}),
 			})
 		end,
-	})
+	},
 
-	use("mfussenegger/nvim-dap")
+	"mfussenegger/nvim-dap",
 
-	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
+	{ "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap" } },
 
-	use("mfussenegger/nvim-lint")
+	"mfussenegger/nvim-lint",
 
-	use({
+	{
 		"mhartington/formatter.nvim",
 		config = function()
 			require("formatter").setup({
@@ -231,30 +226,30 @@ return require("packer").startup(function(use)
 				command = ":FormatWrite",
 			})
 		end,
-	})
+	},
 
-	use({
+	{
 		"kylechui/nvim-surround",
-		tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+		version = "*", -- Use for stability; omit to use `main` branch for the latest features
 		config = function()
 			require("nvim-surround").setup({
 				-- Configuration here, or leave empty to use defaults
 			})
 		end,
-	})
+	},
 
-	use({
+	{
 		"windwp/nvim-autopairs",
 		config = function()
 			require("nvim-autopairs").setup({
 				map_cr = false,
 			})
 		end,
-	})
+	},
 
-	use({
+	{
 		"nvim-neorg/neorg",
-		tag = "*",
+		version = "*",
 		config = function()
 			require("neorg").setup({
 				load = {
@@ -298,41 +293,41 @@ return require("packer").startup(function(use)
 				})
 			end)
 		end,
-		run = ":Neorg sync-parsers",
-		requires = { "nvim-lua/plenary.nvim", "nvim-neorg/neorg-telescope" },
-	})
+		build = ":Neorg sync-parsers",
+		dependencies = { "nvim-lua/plenary.nvim", "nvim-neorg/neorg-telescope" },
+	},
 
-	use({
+	{
 		"Olical/conjure",
 		config = function()
 			vim.g["conjure#extract#tree_sitter#enabled"] = true
 		end,
-	})
+	},
 
-	use({
+	{
 		"clojure-vim/vim-jack-in",
-		requires = {
+		dependencies = {
 			"tpope/vim-dispatch",
 			"radenling/vim-dispatch-neovim",
 		},
-	})
+	},
 
-	use("gpanders/nvim-parinfer")
+	"gpanders/nvim-parinfer",
 
-	use("github/copilot.vim")
+	"github/copilot.vim",
 
-	use({ "dracula/vim", as = "dracula" })
+	{ "dracula/vim", name = "dracula" },
 
-	use("EdenEast/nightfox.nvim")
+	"EdenEast/nightfox.nvim",
 
-	use("kdheepak/lazygit.nvim")
+	"kdheepak/lazygit.nvim",
 
-	use("f-person/git-blame.nvim")
+	"f-person/git-blame.nvim",
 
-	use({
+	{
 		"nvim-neo-tree/neo-tree.nvim",
 		branch = "v2.x",
-		requires = {
+		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
 			"MunifTanjim/nui.nvim",
@@ -349,32 +344,28 @@ return require("packer").startup(function(use)
 				},
 			})
 		end,
-	})
+	},
 
-	use("gpanders/editorconfig.nvim")
+	"gpanders/editorconfig.nvim",
 
-	use({
+	{
 		"nvim-telescope/telescope.nvim",
-		tag = "*",
+		version = "*",
 		requires = { { "nvim-lua/plenary.nvim" } },
-	})
+	},
 
-	use({
+	{
 		"nvim-lualine/lualine.nvim",
-		requires = { "kyazdani42/nvim-web-devicons", opt = true },
+		dependencies = { "kyazdani42/nvim-web-devicons", lazy = true },
 		config = function()
 			require("lualine").setup()
 		end,
-	})
+	},
 
-	use({
+	{
 		"folke/which-key.nvim",
 		config = function()
 			require("which-key").setup()
 		end,
-	})
-
-	if packer_bootstrap then
-		require("packer").sync()
-	end
-end)
+	},
+})
