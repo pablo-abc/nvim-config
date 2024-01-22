@@ -372,15 +372,11 @@ return require("lazy").setup({
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "kyazdani42/nvim-web-devicons", lazy = true },
-		config = function()
-			require("lualine").setup()
-		end,
+		opts = {},
 	},
 
 	{
 		"folke/which-key.nvim",
-		config = function()
-			require("which-key").setup()
-		end,
+		opts = {},
 	},
 })
