@@ -17,21 +17,21 @@ local function map(mode, lhs, rhs, opts)
 	vim.keymap.set(mode, lhs, rhs, options)
 end
 
-map("n", "<leader>nh", ":noh<CR>")
-map("n", "<leader>tt", ":10split<CR>:terminal<CR>i")
+map("n", "<leader>nh", ":noh<CR>", { desc = "Clear highlights" })
+map("n", "<leader>tt", ":10split<CR>:terminal<CR>i", { desc = "Open terminal" })
 
 -- Global mappings. Diagnostic
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float)
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
+vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Open diagnostics float" })
+vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic" })
+vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic list" })
 
 -- Tabs
-map("n", "<leader>to", ":tabnew<CR>")
-map("n", "<leader>tq", ":tabclose<CR>")
-map("n", "<leader>tl", ":tabn<CR>")
-map("n", "<leader>th", ":tabp<CR>")
+map("n", "<leader>to", ":tabnew<CR>", { desc = "Open new tab" })
+map("n", "<leader>tq", ":tabclose<CR>", { desc = "Close tab" })
+map("n", "<leader>tl", ":tabn<CR>", { desc = "Next tab" })
+map("n", "<leader>th", ":tabp<CR>", { desc = "Previous tab" })
 
 -- Autocomplete
 -- Use LspAttach autocommand to only map the following keys
@@ -85,23 +85,17 @@ vim.keymap.set("n", "<leader>bo", dap.step_over, {})
 vim.keymap.set("n", "<leader>bi", dap.step_into, {})
 vim.keymap.set("n", "<leader>bt", dap.toggle_breakpoint, {})
 
-local keymap_restore = {}
-dap.listeners.after["event_initialized"]["me"] = function()
-	for _, buf in pairs(vim.api.nvim_list_bufs()) do
-		local keymaps = vim.api.nvim_buf_get_keymap(buf, "n")
-		for _, keymap in pairs(keymaps) do
-			if keymap.lhs == "K" then
-				table.insert(keymap_restore, keymap)
-				vim.api.nvim_buf_del_keymap(buf, "n", "K")
-			end
-		end
-	end
-	vim.api.nvim_set_keymap("n", "K", '<Cmd>lua require("dap.ui.widgets").hover()<CR>', { silent = true })
+local dapui = require("dapui")
+dap.listeners.before.attach.dapui_config = function()
+	dapui.open()
 end
-
-dap.listeners.after["event_terminated"]["me"] = function()
-	for _, keymap in pairs(keymap_restore) do
-		vim.api.nvim_buf_set_keymap(keymap.buffer, keymap.mode, keymap.lhs, keymap.rhs, { silent = keymap.silent == 1 })
-	end
-	keymap_restore = {}
+dap.listeners.before.launch.dapui_config = function()
+	dapui.open()
 end
+dap.listeners.before.event_terminated.dapui_config = function()
+	dapui.close()
+end
+dap.listeners.before.event_exited.dapui_config = function()
+	dapui.close()
+end
+vim.keymap.set("n", "<leader>du", dapui.toggle, { desc = "Toggle DAP UI" })

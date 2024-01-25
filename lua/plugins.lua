@@ -23,6 +23,7 @@ return require("lazy").setup({
 			ts_update()
 		end,
 		config = function()
+			---@diagnostic disable-next-line: missing-fields
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = {
 					"javascript",
@@ -65,6 +66,7 @@ return require("lazy").setup({
 	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		config = function()
+			---@diagnostic disable-next-line: missing-fields
 			require("nvim-treesitter.configs").setup({
 				textobjects = {
 					select = {
@@ -82,6 +84,7 @@ return require("lazy").setup({
 		end,
 	},
 
+	"folke/neodev.nvim",
 	"williamboman/mason.nvim",
 	"williamboman/mason-lspconfig.nvim",
 
@@ -92,6 +95,7 @@ return require("lazy").setup({
 			require("mason-lspconfig").setup({
 				automatic_installation = true,
 			})
+			require("neodev").setup({})
 			local lspconfig = require("lspconfig")
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			lspconfig.lua_ls.setup({
@@ -120,6 +124,7 @@ return require("lazy").setup({
 
 			lspconfig.eslint.setup({
 				capabilities = capabilities,
+				---@diagnostic disable-next-line: unused-local
 				on_attach = function(client, bufnr)
 					vim.api.nvim_create_autocmd("BufWritePre", {
 						buffer = bufnr,
@@ -288,11 +293,7 @@ return require("lazy").setup({
 	{
 		"kylechui/nvim-surround",
 		version = "*", -- Use for stability; omit to use `main` branch for the latest features
-		config = function()
-			require("nvim-surround").setup({
-				-- Configuration here, or leave empty to use defaults
-			})
-		end,
+		opts = {},
 	},
 
 	{
@@ -334,6 +335,7 @@ return require("lazy").setup({
 			})
 			local neorg_callbacks = require("neorg.core.callbacks")
 
+			---@diagnostic disable-next-line: missing-parameter
 			neorg_callbacks.on_event("core.keybinds.events.enable_keybinds", function(_, keybinds)
 				-- Map all the below keybinds only when the "norg" mode is active
 				keybinds.map_event_to_mode("norg", {
