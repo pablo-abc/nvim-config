@@ -242,7 +242,8 @@ return require("lazy").setup({
 		end,
 	},
 
-	{ "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap" } },
+	{ "theHamsta/nvim-dap-virtual-text", opts = {} },
+	{ "rcarriga/nvim-dap-ui", opts = {}, dependencies = { "mfussenegger/nvim-dap" } },
 
 	"mfussenegger/nvim-lint",
 
