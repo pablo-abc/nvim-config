@@ -187,7 +187,55 @@ return require("lazy").setup({
 		end,
 	},
 
-	"mfussenegger/nvim-dap",
+	{
+		"mfussenegger/nvim-dap",
+		config = function()
+			local packagespath = vim.fn.stdpath("data") .. "/mason/packages"
+			local dap = require("dap")
+			dap.adapters.chrome = {
+				type = "executable",
+				command = "node",
+				args = { packagespath .. "/chrome-debug-adapter/out/src/chromeDebug.js" },
+			}
+
+			dap.adapters.firefox = {
+				type = "executable",
+				command = "node",
+				args = { packagespath .. "/firefox-debug-adapter/dist/adapter.bundle.js" },
+			}
+
+			local debuggers = { -- change this to javascript if needed
+				{
+					name = "Debug with Chrome",
+					type = "chrome",
+					request = "attach",
+					program = "${file}",
+					cwd = vim.fn.getcwd(),
+					sourceMaps = true,
+					protocol = "inspector",
+					port = 9222,
+					webRoot = "${workspaceFolder}",
+				},
+				{
+					name = "Debug with Firefox",
+					type = "firefox",
+					request = "launch",
+					reAttach = true,
+					url = "http://localhost:3000",
+					webRoot = "${workspaceFolder}",
+					firefoxExecutable = "/Applications/Firefox Developer Edition.app/Contents/MacOS/firefox",
+				},
+			}
+
+			dap.configurations.javascript = debuggers
+			dap.configurations.typescript = debuggers
+			dap.configurations.javascriptreact = debuggers
+			dap.configurations.typescriptreact = debuggers
+			dap.configurations.vue = debuggers
+			dap.configurations.svelte = debuggers
+			dap.configurations.astro = debuggers
+		end,
+	},
 
 	{ "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap" } },
 
@@ -336,6 +384,16 @@ return require("lazy").setup({
 	"EdenEast/nightfox.nvim",
 
 	"kdheepak/lazygit.nvim",
+
+	{
+		"NeogitOrg/neogit",
+		dependencies = {
+			"nvim-lua/plenary.nvim", -- required
+			"sindrets/diffview.nvim", -- optional - Diff integration
+			"nvim-telescope/telescope.nvim", -- optional
+		},
+		config = true,
+	},
 
 	"f-person/git-blame.nvim",
 

@@ -77,3 +77,31 @@ vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
 vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
+
+-- DAP
+local dap = require("dap")
+vim.keymap.set("n", "<leader>bc", dap.continue, {})
+vim.keymap.set("n", "<leader>bo", dap.step_over, {})
+vim.keymap.set("n", "<leader>bi", dap.step_into, {})
+vim.keymap.set("n", "<leader>bt", dap.toggle_breakpoint, {})
+
+local keymap_restore = {}
+dap.listeners.after["event_initialized"]["me"] = function()
+	for _, buf in pairs(vim.api.nvim_list_bufs()) do
+		local keymaps = vim.api.nvim_buf_get_keymap(buf, "n")
+		for _, keymap in pairs(keymaps) do
+			if keymap.lhs == "K" then
+				table.insert(keymap_restore, keymap)
+				vim.api.nvim_buf_del_keymap(buf, "n", "K")
+			end
+		end
+	end
+	vim.api.nvim_set_keymap("n", "K", '<Cmd>lua require("dap.ui.widgets").hover()<CR>', { silent = true })
+end
+
+dap.listeners.after["event_terminated"]["me"] = function()
+	for _, keymap in pairs(keymap_restore) do
+		vim.api.nvim_buf_set_keymap(keymap.buffer, keymap.mode, keymap.lhs, keymap.rhs, { silent = keymap.silent == 1 })
+	end
+	keymap_restore = {}
+end
