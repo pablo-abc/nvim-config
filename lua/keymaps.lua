@@ -69,7 +69,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 map("n", "<leader>e", ":Neotree toggle<CR>")
 
 -- Git
-map("n", "<leader>g", ":LazyGit<CR>")
+map("n", "<leader>g", ":Neogit<CR>")
 
 -- Telescope
 local builtin = require("telescope.builtin")
