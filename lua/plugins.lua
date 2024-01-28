@@ -17,6 +17,13 @@ return require("lazy").setup({
 	"lukas-reineke/indent-blankline.nvim",
 
 	{
+		"rcarriga/nvim-notify",
+		config = function()
+			vim.notify = require("notify")
+		end,
+	},
+
+	{
 		"nvim-treesitter/nvim-treesitter",
 		build = function()
 			local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
