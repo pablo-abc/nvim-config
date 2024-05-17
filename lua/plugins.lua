@@ -52,6 +52,8 @@ return require("lazy").setup({
 					"teal",
 					"go",
 					"toml",
+					"markdown",
+					"markdown_inline",
 				},
 				rainbow = {
 					enable = true,
@@ -268,6 +270,9 @@ return require("lazy").setup({
 					javascript = {
 						require("formatter.filetypes.javascript").prettier,
 					},
+					astro = {
+						require("formatter.defaults.prettierd"),
+					},
 					javascriptreact = {
 						require("formatter.filetypes.javascriptreact").prettier,
 					},
@@ -311,6 +316,11 @@ return require("lazy").setup({
 				map_cr = false,
 			})
 		end,
+	},
+	{
+		"vhyrro/luarocks.nvim",
+		priority = 1000,
+		config = true,
 	},
 
 	{
@@ -366,8 +376,11 @@ return require("lazy").setup({
 				command = "setlocal conceallevel=2",
 			})
 		end,
-		build = ":Neorg sync-parsers",
-		dependencies = { "nvim-lua/plenary.nvim", "nvim-neorg/neorg-telescope" },
+		dependencies = {
+			"luarocks.nvim",
+			"nvim-lua/plenary.nvim",
+			"nvim-neorg/neorg-telescope",
+		},
 	},
 
 	{
@@ -387,7 +400,7 @@ return require("lazy").setup({
 
 	"gpanders/nvim-parinfer",
 
-	"github/copilot.vim",
+	"Exafunction/codeium.vim",
 
 	{ "dracula/vim", name = "dracula" },
 
@@ -404,6 +417,8 @@ return require("lazy").setup({
 		},
 		config = true,
 	},
+
+	{ "akinsho/git-conflict.nvim", version = "*", config = true },
 
 	"f-person/git-blame.nvim",
 
