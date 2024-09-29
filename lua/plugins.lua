@@ -54,6 +54,7 @@ return require("lazy").setup({
 					"toml",
 					"markdown",
 					"markdown_inline",
+					"prisma",
 				},
 				rainbow = {
 					enable = true,
@@ -118,12 +119,25 @@ return require("lazy").setup({
 				},
 			})
 
-			lspconfig.volar.setup({
-				capabilities = capabilities,
-				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
-			})
+			local mason_registry = require("mason-registry")
+			local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
+				.. "/node_modules/@vue/language-server"
 
 			lspconfig.tsserver.setup({
+				capabilities = capabilities,
+				init_options = {
+					plugins = {
+						{
+							name = "@vue/typescript-plugin",
+							location = vue_language_server_path,
+							languages = { "vue" },
+						},
+					},
+				},
+				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+			})
+
+			lspconfig.volar.setup({
 				capabilities = capabilities,
 			})
 
@@ -153,6 +167,8 @@ return require("lazy").setup({
 			lspconfig.svelte.setup({
 				capabilities = capabilities,
 			})
+
+			lspconfig.tailwindcss.setup({})
 		end,
 	},
 
