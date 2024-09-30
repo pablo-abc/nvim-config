@@ -145,6 +145,10 @@ return require("lazy").setup({
 				capabilities = capabilities,
 			})
 
+			lspconfig.gopls.setup({
+				capabilities = capabilities,
+			})
+
 			lspconfig.eslint.setup({
 				capabilities = capabilities,
 				---@diagnostic disable-next-line: unused-local
@@ -303,6 +307,9 @@ return require("lazy").setup({
 					},
 					lua = {
 						require("formatter.filetypes.lua").stylua,
+					},
+					go = {
+						require("formatter.filetypes.go").gofmt,
 					},
 					["*"] = {
 						require("formatter.filetypes.any").remove_trailing_whitespace,
