@@ -108,6 +108,12 @@ return require("lazy").setup({
 			require("neodev").setup({})
 			local lspconfig = require("lspconfig")
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			local inlay_hints_on_attach = function(client, bufnr)
+				if client.server_capabilities.inlayHintProvider then
+					vim.g.inlay_hints_visible = true
+					vim.lsp.inlay_hint.enable(true, { bufnr })
+				end
+			end
 			lspconfig.lua_ls.setup({
 				capabilities = capabilities,
 				settings = {
@@ -117,6 +123,7 @@ return require("lazy").setup({
 						},
 					},
 				},
+				on_attach = inlay_hints_on_attach,
 			})
 
 			local mason_registry = require("mason-registry")
@@ -135,10 +142,12 @@ return require("lazy").setup({
 					},
 				},
 				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+				on_attach = inlay_hints_on_attach,
 			})
 
 			lspconfig.volar.setup({
 				capabilities = capabilities,
+				on_attach = inlay_hints_on_attach,
 			})
 
 			lspconfig.rust_analyzer.setup({
@@ -147,6 +156,20 @@ return require("lazy").setup({
 
 			lspconfig.gopls.setup({
 				capabilities = capabilities,
+				on_attach = inlay_hints_on_attach,
+				settings = {
+					gopls = {
+						hints = {
+							assignVariableTypes = true,
+							compositeLiteralFields = true,
+							compositeLiteralTypes = true,
+							constantValues = true,
+							functionTypeParameters = true,
+							parameterNames = true,
+							rangeVariableTypes = true,
+						},
+					},
+				},
 			})
 
 			lspconfig.eslint.setup({
@@ -170,6 +193,7 @@ return require("lazy").setup({
 
 			lspconfig.svelte.setup({
 				capabilities = capabilities,
+				on_attach = inlay_hints_on_attach,
 			})
 
 			lspconfig.tailwindcss.setup({})
