@@ -19,7 +19,15 @@ return require("lazy").setup({
 	{
 		"rcarriga/nvim-notify",
 		config = function()
-			vim.notify = require("notify")
+			local banned_messages = { "No information available" }
+			vim.notify = function(msg, ...)
+				for _, banned in ipairs(banned_messages) do
+					if msg == banned then
+						return
+					end
+				end
+				return require("notify")(msg, ...)
+			end
 		end,
 	},
 
@@ -143,6 +151,15 @@ return require("lazy").setup({
 				},
 				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
 				on_attach = inlay_hints_on_attach,
+				-- For Deno support
+				root_dir = lspconfig.util.root_pattern("package.json"),
+				single_file_support = false,
+			})
+
+			lspconfig.denols.setup({
+				capabilities = capabilities,
+				on_attach = inlay_hints_on_attach,
+				root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
 			})
 
 			lspconfig.volar.setup({
